@@ -1,0 +1,62 @@
+// Copyright 2018 Bonsai AI
+
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package bridge;
+
+// SubscriptionRequest contains the parameters for subscribing to a NATS queue.
+message SubscribeToStreamRequest {
+    enum SubscribeToStreamOption {
+        DEFAULT = 0;
+        START_WITH_LAST_RECEIVED = 1;
+        DELIVER_ALL_AVAILABLE = 2;
+        START_AT_SEQUENCE = 3;
+        START_AT_TIME = 4;
+        START_AT_TIME_DELTA = 5;
+    }
+    // Required subject of the queue
+    string subject = 1;
+    // Option queue group
+    string queue_group = 2;
+    // Subscription option
+    SubscribeToStreamOption subscription_type = 3;
+    // Set when type is START_AT_SEQUENCE
+    uint64 start_at_sequence = 4;
+    // Set when type is START_AT_TIME
+    google.protobuf.Timestamp start_at_time = 5;
+    // Set when type is START_AT_TIME_DELTA, in nanoseconds.
+    int64 start_at_time_delta_ns = 6;
+}
+
+// Request for publishing a message.
+message PublishRequest {
+    // Required subject of queue to publish to.
+    string subject = 1;
+    // The data to publish.
+    bytes data = 2;
+}
+
+// Response to publishing a message.
+message PublishResponse {
+
+}
+
+// This is a copy of a stan.MsgProto, since Go doesn't allow type casts of pointers for some reason.
+message Msg {
+    uint64 sequence = 1;
+    string subject = 2;
+    string reply = 3;
+    bytes data = 4;
+    int64 timestamp = 5;
+    bool redelivered = 6;
+    uint32 crc32 = 7;
+}
+
+service Bridge {
+    // Publish a message
+    rpc Publish(PublishRequest) returns (PublishResponse);
+    // Subscribe to a stream
+    rpc SubscribeToStream(SubscribeToStreamRequest) returns (stream Msg);
+}
