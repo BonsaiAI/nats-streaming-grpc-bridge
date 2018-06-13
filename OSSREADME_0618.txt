@@ -1,0 +1,6 @@
+ATTENTION - THIS DIRECTORY CONTAINS THIRD PARTY OPEN SOURCE MATERIALS:
+THEY ARE CLEARED ONLY FOR LIMITED USE BY Bonsai FOR THE Bonsai Platform PRODUCT.
+DO NOT USE OR SHARE THIS CODE WITHOUT APPROVAL PURSUANT TO THE OPEN SOURCE
+SOFTWARE APPROVAL POLICY.
+FILE nats-streaming-grpc-bridge/vendor/golang.org/x/crypto/pbkdf2/pbkdf2_test.go
+contains code from stackoverflow.com article "PBKDF2-HMAC-SHA2 test vectors"
