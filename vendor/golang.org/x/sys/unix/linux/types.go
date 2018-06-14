@@ -1,3 +1,21 @@
+/*
+ATTENTION - THIS FILE CONTAINS THIRD PARTY OPEN SOURCE CODE:
+struct my_sockaddr_un {
+	sa_family_t sun_family;
+#if defined(__ARM_EABI__) || defined(__powerpc64__)
+	// on ARM char is by default unsigned
+	signed char sun_path[108];
+#else
+	char sun_path[108];
+#endif
+}; 
+IT IS LICENCED UNDER:
+GPL v2 with a "Linux-syscall-note" exception.
+IT IS CLEARED ONLY FOR LIMITED USE BY Bonsai FOR THE Bonsai Platform PRODUCT. 
+DO NOT USE OR SHARE THIS CODE WITHOUT APPROVAL PURSUANT TO THE OPEN SOURCE 
+SOFTWARE APPROVAL POLICY.
+*/
+
 // Copyright 2009 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
